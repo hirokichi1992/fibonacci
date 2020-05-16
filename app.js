@@ -1,11 +1,17 @@
 'use strict';
+const memo = new Map();
+memo.set(0, 0);
+memo.set(1, 1);
+
 function fib(n) {
-    if (n === 0) {
-        return 0;
-    } else if (n === 1) {
-        return 1;
+    // memoに保存されている場合memoを参照する
+    if (memo.has(n)) {
+        return memo.get(n);
     }
-    return fib(n-1) + fib(n-2);
+    const value = fib(n-1) + fib(n-2);
+    // memoに計算結果を保存し、次回以降の計算を減らす
+    memo.set(n, value);
+    return value;
 }
 
 const length = 40;
